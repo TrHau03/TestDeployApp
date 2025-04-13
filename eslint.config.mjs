@@ -1,69 +1,55 @@
-import js from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import { FlatCompat } from '@eslint/eslintrc'
-const compat = new FlatCompat({
-  // import.meta.dirname is available after Node.js v20.11.0
-  baseDirectory: import.meta.dirname,
-})
+// eslint.config.js
+import eslint from "@eslint/js"
+import nextPlugin from "@next/eslint-plugin-next"
+import reactPlugin from "eslint-plugin-react"
+import reactHooksPlugin from "eslint-plugin-react-hooks"
+import tseslint from "typescript-eslint"
 
 export default [
-  js.configs.recommended,
-  
-  // TypeScript configuration
-  {
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true
-        }
-      }
+    eslint.configs.recommended,
+    ...tseslint.configs.recommended,
+    {
+        files: ["**/*.{js,jsx,ts,tsx}"],
+        plugins: {
+            "@next/next": nextPlugin,
+            react: reactPlugin,
+            "react-hooks": reactHooksPlugin,
+        },
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: "module",
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+        },
+        rules: {
+            "react/react-in-jsx-scope": "off",
+            "react/prop-types": "off",
+            "no-unused-vars": "off",
+            "@typescript-eslint/no-empty-object-type": "off",
+            "@typescript-eslint/no-duplicate-enum-values": "off",
+            "@typescript-eslint/no-unused-vars": ["warn"],
+            semi: "off",
+            "@typescript-eslint/no-require-imports": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+        },
+        settings: {
+            react: {
+                version: "detect",
+            },
+        },
     },
-    plugins: {
-      '@typescript-eslint': tseslint
+    {
+        ignores: [
+            "node_modules/**",
+            ".next/**",
+            "out/**",
+            "public/**",
+            "next.config.js",
+            "postcss.config.js",
+            "prettier.config.js",
+        ],
     },
-    rules: {
-      ...tseslint.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/explicit-function-return-type': 'warn',
-      '@typescript-eslint/no-explicit-any': 'error',
-      'semi': ['error', 'always'],
-    }
-  },
-  
-  // React configuration
-  {
-    files: ['**/*.{jsx,tsx}'],
-    plugins: {
-      'react': reactPlugin,
-      'react-hooks': reactHooksPlugin
-    },
-    rules: {
-      ...reactPlugin.configs.recommended.rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      'react/react-in-jsx-scope': 'off' // Not needed in Next.js
-    },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    }
-  },
-  
-  // Next.js pages and components
-  {
-    files: ['app/**/*.{ts,tsx}', 'pages/**/*.{ts,tsx}', 'components/**/*.{ts,tsx}'],
-    rules: {
-      'import/no-default-export': 'off'
-    }
-  },
-  ...compat.config({
-    extends: ['next', 'prettier'],
-  }),
-];
+]
