@@ -87,7 +87,7 @@ return (
           <div className="horizontal-logo flex items-center justify-start py-2">
             <Link href="/" className="main-logo flex items-center gap-2 transition-all duration-300 hover:opacity-80">
               <Image
-            className="h-10 w-10 rounded-[100] object-contain"
+            className="h-10 w-10 rounded-[100px]  object-contain"
             src="/assets/images/logoApp.png"
             alt="Ainosha logo"
             width={40}
