@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import themeConfig from '@/theme.config';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isDarkMode: true,
@@ -36,7 +36,6 @@ const themeConfigSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
-    toggleTheme(state) {},
     toggleMenu(state, { payload }) {
       payload = payload || state.menu; // vertical, collapsible-vertical, horizontal
       localStorage.setItem('menu', payload);
@@ -79,7 +78,6 @@ const themeConfigSlice = createSlice({
 });
 
 export const {
-  toggleTheme,
   toggleMenu,
   toggleLayout,
   toggleRTL,

@@ -49,6 +49,7 @@ export default [
             "next.config.js",
             "postcss.config.js",
             "prettier.config.js",
+            "tailwind.config.js",
         ],
     },
 ]

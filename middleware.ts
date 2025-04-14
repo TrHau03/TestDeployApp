@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAccessToken } from './server/token';
 
 export const config = {
   matcher: ['/chat', '/auth/login', '/auth/register'],
 };
 
 export async function middleware(request: NextRequest) {
-  const token = await getAccessToken();
+  const token = request.cookies.get("x-access-token")?.value;
   const path = request.nextUrl.pathname;
 
   // If trying to access protected routes without a token
