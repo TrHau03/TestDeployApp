@@ -1,39 +1,20 @@
 "use client"
 import { useUser, useUserLoading } from "@/client/auth"
+import { Agent } from "@/core/agent"
 import Lottie from "lottie-react"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Info from "../../_internal/Info"
-import { Chat } from "../../types"
 
-const chats: Chat[] = [
-    {
-        id: "1",
-        lastMessage: "Hello, it's Market Scan",
-        agent: {
-            id: "1",
-            name: "Market Scan",
-            type: "market-sentiment",
-            slug: "market-scan",
-            description:
-                "A digital assistant with advanced capabilities for analyzing entire cryptocurrency markets. This AI evaluates multiple coins simultaneously, tracks market trends, and identifies patterns across different assets to provide comprehensive insights into market movements and investment opportunities.",
-            avatarURL: "/assets/images/market-sentiment.svg",
-        },
-    },
-    {
-        id: "2",
-        agent: {
-            id: "2",
-            name: "Coin Deep",
-            type: "coin",
-            slug: "coin-deep",
-            description:
-                "A specialized assistant focused on deep analysis of individual cryptocurrencies. This AI performs detailed examination of specific coins, evaluating fundamentals, technical metrics, and historical performance to generate precise insights and forecasts for single crypto assets.",
-            avatarURL: "/assets/images/coin-analysis.svg",
-        },
-        lastMessage: "Hello, it's Coin Deep",
-    },
-]
+const agent = {
+    id: "1",
+    name: "Market Scan",
+    type: "market-sentiment",
+    slug: "market-scan",
+    description:
+        "A digital assistant with advanced capabilities for analyzing entire cryptocurrency markets. This AI evaluates multiple coins simultaneously, tracks market trends, and identifies patterns across different assets to provide comprehensive insights into market movements and investment opportunities.",
+    avatarURL: "/assets/images/market-sentiment.svg",
+}
 
 export default function MarketScan() {
     const router = useRouter()
@@ -54,7 +35,7 @@ export default function MarketScan() {
         <div className="flex flex-col md:grid md:grid-cols-10 gap-5 min-h-[calc(100vh_-_6rem)] md:min-h-[calc(100vh_-_8rem)] overflow-hidden">
             {/* Left Panel */}
             <div
-                className={`panel flex-grow md:col-span-8 ${
+                className={`panel md:col-span-8 ${
                     html === "" && "border-[0.5px]"
                 } border-primary/30 p-0 flex items-center justify-center`}
             >
@@ -105,7 +86,7 @@ export default function MarketScan() {
 
             {/* Right Panel */}
             <div className="panel flex-shrink-0 md:col-span-2 h-auto border-[0.5px] border-primary/30 p-4">
-                <Info profile={chats[0].agent} />
+                <Info profile={agent as Agent} />
             </div>
         </div>
     )

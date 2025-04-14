@@ -1,40 +1,21 @@
 "use client"
 import { useUser, useUserLoading } from "@/client/auth"
+import { Agent } from "@/core/agent"
 import Lottie from "lottie-react"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Info from "../../_internal/Info"
-import { Chat } from "../../types"
 import CoinItem from "./CoinItem"
 
-const chats: Chat[] = [
-    {
-        id: "1",
-        lastMessage: "Hello, it's Market Scan",
-        agent: {
-            id: "1",
-            name: "Market Scan",
-            type: "market-sentiment",
-            slug: "market-scan",
-            description:
-                "A digital assistant with advanced capabilities for analyzing entire cryptocurrency markets. This AI evaluates multiple coins simultaneously, tracks market trends, and identifies patterns across different assets to provide comprehensive insights into market movements and investment opportunities.",
-            avatarURL: "/assets/images/market-sentiment.svg",
-        },
-    },
-    {
-        id: "2",
-        agent: {
-            id: "2",
-            name: "Coin Deep",
-            type: "coin",
-            slug: "coin-deep",
-            description:
-                "A specialized assistant focused on deep analysis of individual cryptocurrencies. This AI performs detailed examination of specific coins, evaluating fundamentals, technical metrics, and historical performance to generate precise insights and forecasts for single crypto assets.",
-            avatarURL: "/assets/images/coin-analysis.svg",
-        },
-        lastMessage: "Hello, it's Coin Deep",
-    },
-]
+const agent = {
+    id: "2",
+    name: "Coin Deep",
+    type: "coin",
+    slug: "coin-deep",
+    description:
+        "A specialized assistant focused on deep analysis of individual cryptocurrencies. This AI performs detailed examination of specific coins, evaluating fundamentals, technical metrics, and historical performance to generate precise insights and forecasts for single crypto assets.",
+    avatarURL: "/assets/images/coin-analysis.svg",
+}
 
 export default function CoinDeep() {
     const router = useRouter()
@@ -148,7 +129,7 @@ export default function CoinDeep() {
 
             {/* Right Panel */}
             <div className="panel flex-shrink-0 md:col-span-2 h-auto border-[0.5px] border-primary/30 p-4">
-                <Info profile={chats[0].agent} />
+                <Info profile={agent as Agent} />
             </div>
         </div>
     )
