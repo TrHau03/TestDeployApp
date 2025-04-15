@@ -1,5 +1,6 @@
 "use client"
-import Loading from "@/components/layouts/loading"
+import Loading from "@/app/loading"
+import { useAppDispatch, useAppSelector } from "@/core/hooks/useRedux"
 import {
     toggleAnimation,
     toggleLayout,
@@ -9,12 +10,10 @@ import {
     toggleSemidark,
 } from "@/store/themeConfigSlice"
 import { PropsWithChildren, useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
-import { useAppSelector } from "./core/hooks/useRedux"
 
 function App({ children }: PropsWithChildren) {
     const themeConfig = useAppSelector((state) => state.themeConfig)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
